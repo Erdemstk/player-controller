@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float jumpForce = 7f;
-    private Animator animator;//animasyon yok zaten cube ama ben yine animator aldým
-
+    private Animator animator;
+   
     private Rigidbody rb;
     private bool isGrounded = true;
     float horizontalInput;
@@ -16,14 +16,16 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        
         rb = GetComponent<Rigidbody>();
-        animator = GetComponent<Animator>();//animasyon yok zaten cube ama ben yine animator aldým
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
     {
         control();
         Animation_Control();
+       
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -48,7 +50,7 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("Crouched", true);
 
-            // Animasyonla yapmak lazým sanýrým :)
+           
         }
         else
         {
@@ -58,10 +60,22 @@ public class PlayerController : MonoBehaviour
 
         // Hýzlý koþma ve Normal koþma
         horizontalInput = Input.GetAxis("Horizontal");
-       verticalInput = Input.GetAxis("Vertical");
+        verticalInput = Input.GetAxis("Vertical");
 
-        Vector3 moveDirection = new Vector3(horizontalInput, 0f, verticalInput).normalized;
+        Vector3 moveDirection = new Vector3(horizontalInput, 0f, verticalInput);
+        moveDirection = Camera.main.transform.TransformDirection(moveDirection);
+        moveDirection.y = 0f;
+        moveDirection.Normalize();
+
+        // Kameranýn yatay dönüþünü alarak karakteri döndür
+        float cameraRotation = Camera.main.transform.rotation.eulerAngles.y;
+        
+        Quaternion rotation = Quaternion.Euler(0, cameraRotation, 0);
+        rb.MoveRotation(rotation);
+
+        // Hareketi uygula
         Vector3 movement = moveDirection * moveSpeed * Time.deltaTime;
+        rb.MovePosition(transform.position + movement) ;
 
         // Hýzlý koþma kontrolü
         if (Input.GetKey(KeyCode.LeftShift))
@@ -76,7 +90,6 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        rb.MovePosition(transform.position + movement);
     }
     void Animation_Control()
     {
@@ -116,5 +129,6 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("IsRunningRight", false);
         }
     }
+    
 }
 
