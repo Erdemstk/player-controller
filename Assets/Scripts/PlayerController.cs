@@ -44,17 +44,17 @@ public class PlayerController : MonoBehaviour
         }
 
         // Eðilme
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKey(KeyCode.LeftControl))
         {
-            
+            animator.SetBool("Crouched", true);
+
             // Animasyonla yapmak lazým sanýrým :)
         }
-        // Roll
-        if (Input.GetKeyDown(KeyCode.LeftAlt))
+        else
         {
-            animator.SetTrigger("Roll");
-            
+            animator.SetBool("Crouched", false);
         }
+
 
         // Hýzlý koþma ve Normal koþma
         horizontalInput = Input.GetAxis("Horizontal");
@@ -83,6 +83,12 @@ public class PlayerController : MonoBehaviour
         if (verticalInput > 0)
         {
             animator.SetBool("IsRunningForward", true);
+            //Roll
+            if (Input.GetKeyDown(KeyCode.LeftAlt))
+            {
+                animator.SetTrigger("Roll");
+
+            }
 
         }
         else if (verticalInput < 0)
