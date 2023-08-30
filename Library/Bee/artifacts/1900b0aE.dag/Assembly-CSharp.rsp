@@ -364,6 +364,9 @@
 "Assets/Scripts/GrenadeThrow.cs"
 "Assets/Scripts/PlayerController.cs"
 "Assets/Scripts/UI_Manager.cs"
+"Assets/Scripts/Weapon.cs"
+"Assets/Scripts/WeaponManager.cs"
+"Assets/Scripts/Weapon_Type.cs"
 -langversion:9.0
 
 /deterministic

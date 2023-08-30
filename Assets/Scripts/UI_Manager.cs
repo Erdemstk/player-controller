@@ -10,8 +10,15 @@ public class UI_Manager : MonoBehaviour
     public Image HandGunImage;
     public Image ProjectileImage;
     public Image currentImage;
+
+     Text magCap_UI;
+    public Text magAmount_UI;
+
     public Sprite[] sprites;
+
     Vector3 currentScale;
+   
+
     private static UI_Manager instance = null;
 
     public static UI_Manager Instance
@@ -32,7 +39,9 @@ public class UI_Manager : MonoBehaviour
     }
     void Update()
     {
+       
         UI_Contollers();
+        //magCap_UI.text = GetComponent<Weapon_Type>().magazineCapacity.ToString(); OLMUYYOOOORRRRRR
     }
     void UI_Contollers()
     {
@@ -79,6 +88,8 @@ public class UI_Manager : MonoBehaviour
         currentImage.enabled = true;
         currentImage.sprite= HandGunImage.sprite;
     }
+    
+    
 
 
 

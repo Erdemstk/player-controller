@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour
 
         // Hareketi uygula
         Vector3 movement = moveDirection * moveSpeed * Time.deltaTime;
-        rb.MovePosition(transform.position + movement) ;
+        rb.MovePosition(transform.position + movement);
 
         // Hýzlý koþma kontrolü
         if (Input.GetKey(KeyCode.LeftShift))
